@@ -75,8 +75,15 @@ WSGI_APPLICATION = 'OJ_Server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS': {
+            'options': '-c search_path=oj_admin'
+         },
+        'NAME': 'online_judge',
+        'HOST': 'flddfmrvd03',
+        'PORT': '5432',
+        'USER': 'postgres',
+        'PASSWORD': 'pgfrcmaxadmin',
     }
 }
 

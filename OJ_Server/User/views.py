@@ -34,7 +34,7 @@ def register(request):
 
 def login(request):
     try:
-        if (request.method != "POST"):
+        if request.method != "POST":
             return JsonResponse({'status': 'Only POST Method is Allowed'}, status = 400)
 
         jsonData = json.loads(request.body)
@@ -55,16 +55,32 @@ def login(request):
     
 def logout(request):
     try:
-        if (request.method != "POST"):
-            return JsonResponse({'status': 'Only POST Method is Allowed'}, status=  400)
+        if request.method != "POST":
+            return JsonResponse({'status': 'Only POST Method is Allowed'}, status =  400)
 
         if request.user.is_authenticated:
             auth_logout(request)
             return JsonResponse({'message': 'Logout Sucessful'}, status = 200)
 
         else:
-            return JsonResponse({'message': 'Authentication Failed'}, status = 400)
+            return JsonResponse({'message': 'User Already Logged Out. Please Login Again to Continue'}, status = 400)
 
     except Exception as e:
-        return JsonResponse({'status': 'Exception Occured while Logout', 'exception': str(e)}, status = 400)
+        return JsonResponse({'status': 'Exception Occured while Logging Out', 'exception': str(e)}, status = 400)
+    
+def getProfile(request):
+    try:
+        if request.method != "GET":
+            return JsonResponse({'status': 'Only GET Method is Allowed'}, status = 400)
+
+        if request.user.is_authenticated:
+            print("User Profile Fetched Successfully")
+            return JsonResponse((model_to_dict(request.user)), safe = False)
+
+        else:
+            print("Please Login with a verified User Profile")
+            return JsonResponse({'message': 'Please Login with a verified User Profile'}, status = 400)
+
+    except Exception as e:
+        return JsonResponse({'status': 'Exception Occured while fetching User Profile', 'exception': str(e)}, status=400)
 

@@ -7,5 +7,5 @@ urlpatterns = [
     path('logout/', views.logout, name = 'Logout'),
     # path('activate/<str:uidb64>/<str:token>',
     #      views.ActivateUserMethod, name='Account Verification'),
-    # path('getProfile/', views.getProfile, name='User Profile'),
+    path('getProfile/', views.getProfile, name ='User Profile'),
 ]

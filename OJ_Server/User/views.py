@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import json
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -10,77 +11,74 @@ from django.forms.models import model_to_dict
 import warnings
 warnings.filterwarnings("ignore")
 
-@csrf_exempt
+def home(request):
+    return render(request, "homepage.html")
+
+# @csrf_exempt
 def register(request):
     try:
-        if request.method != "POST":
-            return JsonResponse({'status': 'Only POST Method is Allowed'}, status = 400)
+        if request.method == "POST":
+            username = request.POST["username"]
+            first_name = request.POST["firstname"]
+            last_name = request.POST["lastname"]
+            email = request.POST["email"]
+            password1 = request.POST["password1"]
+            password2 = request.POST["password1"]
 
-        jsonData = json.loads(request.body)
-        mandatory_fields = ['username', 'email','password','firstname','lastname']
-        for field in mandatory_fields:
-            if field not in jsonData:
-                return JsonResponse({'status': 'Mandatory Fields Not Present'}, status = 400)
+            if User.objects.filter(username=username):
+                messages.error(request, "Username already exist! Please try some other username.")
+                return redirect('/users/register')
+            
+            if password1 != password2:
+                messages.error(request, "Passwords didn't matched!!")
+                return redirect('/users/register')
+        
+            newuser = User.objects.create_user(
+                username = username, email = email, password = password1, first_name = first_name, 
+                last_name = last_name, is_active = True)
+            print(newuser)
+            messages.success(request, 'User Registered Successfully. Please Login to Continue!!')
 
-        newuser = User.objects.create_user(
-            username = jsonData["username"], email = jsonData["email"], 
-            password = jsonData["password"], first_name = jsonData["firstname"], 
-            last_name = jsonData["lastname"], is_active = True)
+            return redirect('/users/login')
 
-        return JsonResponse({'message': 'User Successfully Registered'}, status = 200)
+        return render(request, "register.html")
 
     except Exception as e:
-        return JsonResponse({'status': 'Exception Occured while User Registration', 'exception': str(e)}, status = 400)
+        messages.error(request, f"Exception Occured while User Registration: {str(e)}")
+        return redirect('/users')
 
 def login(request):
     try:
-        if request.method != "POST":
-            return JsonResponse({'status': 'Only POST Method is Allowed'}, status = 400)
-
-        jsonData = json.loads(request.body)
-        if 'username' not in jsonData or 'password' not in jsonData:
-            return JsonResponse({'message': 'Required fields Username/Password Missing'}, status = 400)
-
-        user = authenticate(request, username = jsonData["username"], password = jsonData["password"])
-        print('User Name: ', user)
-        if user:
-            auth_login(request, user)
-            return JsonResponse({'message': 'Login Successful', 'object': model_to_dict(user)})
-        
-        else:
-            return JsonResponse({'message': 'Login Failed'}, status = 400)
+        if request.method == "POST":
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username = username, password = password)
+            print('User Name: ', user)
+            if user:
+                auth_login(request, user)
+                return redirect('/users')
+            
+            else:
+                messages.success(request, "Invalid Credentials!!")
+                return redirect('/users/login')
+            
+        return render(request, "login.html")
 
     except Exception as e:
-        return JsonResponse({'status': 'Exception Occured while Login', 'exception': str(e)}, status = 400)
+        messages.error(request, f"Exception Occured while Login: {str(e)}")
+        return redirect('/users')
     
 def logout(request):
     try:
-        if request.method != "POST":
-            return JsonResponse({'status': 'Only POST Method is Allowed'}, status =  400)
-
         if request.user.is_authenticated:
             auth_logout(request)
-            return JsonResponse({'message': 'Logout Sucessful'}, status = 200)
-
+            messages.success(request, "Logged Out Successfully!!")
         else:
-            return JsonResponse({'message': 'User Already Logged Out. Please Login Again to Continue'}, status = 400)
+            messages.success(request, 'User Already Logged Out. Please Login Again to Continue!!')
+
+        return redirect('/users')
 
     except Exception as e:
-        return JsonResponse({'status': 'Exception Occured while Logging Out', 'exception': str(e)}, status = 400)
+        messages.error(request, f"Exception Occured while Logging Out: {str(e)}")
+        return redirect('/users')
     
-def getProfile(request):
-    try:
-        if request.method != "GET":
-            return JsonResponse({'status': 'Only GET Method is Allowed'}, status = 400)
-
-        if request.user.is_authenticated:
-            print("User Profile Fetched Successfully")
-            return JsonResponse((model_to_dict(request.user)), safe = False)
-
-        else:
-            print("Please Login with a verified User Profile")
-            return JsonResponse({'message': 'Please Login with a verified User Profile'}, status = 400)
-
-    except Exception as e:
-        return JsonResponse({'status': 'Exception Occured while fetching User Profile', 'exception': str(e)}, status=400)
-

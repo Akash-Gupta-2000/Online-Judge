@@ -60,7 +60,7 @@ def login(request):
             print('User Name: ', user)
             if user:
                 auth_login(request, user)
-                return redirect('/users')
+                return redirect('/problems/getAllProblems')
             
             else:
                 messages.success(request, "Invalid Credentials!!")

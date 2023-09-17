@@ -74,12 +74,14 @@
 
     <h3>CodeGym</h3>
 
-    {% if user.is_authenticated %}
+    <button><a href="/users/register">Register</a></button>
+    <button><a href="/users/login">Login</a></button>
+    <!-- {% if user.is_authenticated %}
     <h4>You're successfully logged in.</h4>
     <button><a href="/users/logout">Logout</a></button>
     {% else %}
     <button><a href="/users/register">Register</a></button>
     <button><a href="/users/login">Login</a></button>
-    {% endif %}
+    {% endif %} -->
 </body>
 </html>

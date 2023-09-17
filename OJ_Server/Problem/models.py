@@ -6,7 +6,7 @@ class Tag(models.Model):
     tagname = models.CharField(max_length=20)
 
 class Problem(models.Model):
-    difficulty_choices = (("Easy", "Easy"), ("Medium", "Medium"), ("Tough", "Tough"))
+    difficulty_choices = (("Easy", "Easy"), ("Medium", "Medium"), ("Hard", "Hard"))
     problemcode = models.CharField(max_length=20, null=False, unique=True, default='')
     title = models.CharField(max_length=100, null=False, default='', unique=True)
     description = models.TextField(null=False)

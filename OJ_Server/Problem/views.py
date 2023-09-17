@@ -12,7 +12,8 @@ def getAllProblems(request):
         problem_dict["tags"] = tags
         problems_dict_list.append(problem_dict)
     # print(problems_dict_list)
-    return JsonResponse(problems_dict_list, safe=False)
+    context = {'problems': problems_dict_list}
+    return render(request, 'all_problems.html', context)
 
 def getProblemsByPage(request,page_no):
     init_count = (page_no-1)*50;
@@ -25,5 +26,5 @@ def getProblemById(request,id):
     tags = list(problem.tags.all().values())
     problem_dict = model_to_dict(problem)
     problem_dict["tags"] = tags
-    return JsonResponse(problem_dict, safe=False)
+    return render(request, 'specific_problem.html', {'problem_data': problem_dict})
 

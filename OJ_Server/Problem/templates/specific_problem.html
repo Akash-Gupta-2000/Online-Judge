@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Problem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f7ff; /* Light blue background */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .left-column {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .right-column {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .problem-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007BFF; /* Blue title color */
+            margin-bottom: 10px;
+        }
+
+        .problem-info {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .problem-description {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .problem-constraints {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #555; /* Darker text color for constraints */
+        }
+
+        .code-editor {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            resize: none;
+        }
+
+        .submit-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <div class="problem-title">{{ problem_data.title }}</div>
+            <div class="problem-info">
+                <strong>Problem Code:</strong> {{ problem_data.problemcode }}<br>
+                <strong>Difficulty:</strong> {{ problem_data.difficulty }}<br>
+                <strong>Tags:</strong> {% for tag in problem_data.tags %}{{ tag.tagname }}{% if not forloop.last %}, {% endif %}{% endfor %}
+            </div>
+            <div class="problem-description">
+                {{ problem_data.description|safe }}
+            </div>
+            <div class="problem-constraints">
+                <strong>Constraints:</strong><br>
+                {{ problem_data.constraints|safe }}
+            </div>
+        </div>
+        <div class="right-column">
+            <h2>Code Editor</h2>
+            <textarea class="code-editor" placeholder="Write your code here..."></textarea>
+            <button class="submit-button">Submit</button>
+        </div>
+    </div>
+</body>
+</html>

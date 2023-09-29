@@ -8,7 +8,9 @@ import os
 from time import time
 from django.conf import settings
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def verdict(request, problem_id):
     if request.method == 'POST':
         problem = Problem.objects.get(id = problem_id)

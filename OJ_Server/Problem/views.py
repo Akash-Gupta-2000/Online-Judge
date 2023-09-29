@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from .models import Problem
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def getAllProblems(request):
     problems_list = Problem.objects.all()
     problems_dict_list = []
@@ -21,10 +23,12 @@ def getProblemsByPage(request,page_no):
     problems_dict_list = [model_to_dict(problem) for problem in problems_list]
     return JsonResponse(problems_dict_list, safe=False)
 
+@login_required
 def getProblemById(request,id):
     problem = Problem.objects.get(id=id)
     tags = list(problem.tags.all().values())
     problem_dict = model_to_dict(problem)
     problem_dict["tags"] = tags
+    print(problem_dict)
     return render(request, 'specific_problem.html', {'problem_data': problem_dict})
 

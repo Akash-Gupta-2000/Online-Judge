@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verdict Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f7ff; /* Light blue background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            max-width: 80%; /* Adjust the maximum width as needed */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .verdict {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff; /* White text color for all verdicts */
+        }
+
+        /* Define styles for different verdicts by changing the background color of the card */
+        .accepted {
+            background-color: #4CAF50; /* Green background for Accepted */
+        }
+
+        .wrong-answer {
+            background-color: #FF5733; /* Red background for Wrong Answer */
+        }
+
+        .other {
+            background-color: #007BFF; /* Blue background for All Others */
+        }
+
+        /* Add additional styles for buttons or information below */
+    </style>
+</head>
+<body>
+    <!-- Apply the appropriate CSS class to the entire card based on the verdict -->
+    <div class="card {{ verdict_css_class }}">
+        <div class="verdict">{{ verdict }}</div>
+        <!-- You can add additional information or buttons here if needed -->
+    </div>
+</body>
+</html>

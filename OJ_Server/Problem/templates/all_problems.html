@@ -27,6 +27,10 @@
             transition: transform 0.2s;
             width: 80vw; /* Set card width to 80% of viewport width */
             max-width: 800px; /* Add a maximum width for larger screens */
+            display: flex;
+            flex-direction: column; /* Stack child elements vertically */
+            justify-content: space-between; /* Align items to the flex-end */
+            position: relative; /* Add relative positioning */
         }
 
         .card:hover {
@@ -42,10 +46,10 @@
         .card-info {
             font-size: 14px;
             color: #777;
+            margin-bottom: 10px; /* Add some spacing between info and button */
         }
 
         .action-button {
-            margin-top: 10px;
             padding: 10px 20px;
             background-color: #007BFF;
             color: #fff;
@@ -53,7 +57,11 @@
             border-radius: 3px;
             cursor: pointer;
             transition: background-color 0.2s;
-            align-self: flex-start; /* Align button to the left */
+            position: absolute; /* Add absolute positioning */
+            top: 50%; /* Vertically center the button */
+            transform: translateY(-50%); /* Adjust the button's position */
+            right: 20px; /* Adjust the button's position from the right */
+            z-index: 1; /* Set a higher z-index to place it in front */
         }
 
         .action-button:hover {
@@ -66,13 +74,13 @@
     <div class="container">
         {% for problem in problems %}
         <div class="card">
+            <button class="action-button" onclick="window.location.href='/problems/getProblemById/{{ problem.id }}'">Solve <></button>
             <div class="card-title">{{ problem.title }}</div>
             <div class="card-info">
                 <strong>Problem ID:</strong> {{ problem.id }}<br>
                 <strong>Difficulty:</strong> {{ problem.difficulty }}<br>
                 <strong>Tags:</strong> {% for tag in problem.tags %}{{ tag.tagname }}{% if not forloop.last %}, {% endif %}{% endfor %}
             </div>
-            <button class="action-button" onclick="window.location.href='/problems/getProblemById/{{ problem.id }}'">Solve <></button>
         </div>
         {% endfor %}
     </div>

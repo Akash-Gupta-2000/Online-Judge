@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f2f7ff;
             margin: 0;
             padding: 0;
             display: flex;
@@ -24,6 +24,7 @@
             padding: 20px;
             width: 400px;
             text-align: center;
+            position: relative; /* Added positioning */
         }
 
         h3 {
@@ -56,6 +57,21 @@
             font-size: 16px;
         }
 
+        /* Add styles for error messages */
+        .error-messages {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
         button[type="submit"] {
             background-color: #007BFF;
             color: #fff;
@@ -74,11 +90,8 @@
 <body>
 
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <div class="error-messages">
         <strong>Message:</strong> {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
     </div>
     {% endfor %}
 

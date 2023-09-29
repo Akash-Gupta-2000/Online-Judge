@@ -16,8 +16,8 @@ class Problem(models.Model):
 
 class Testcase(models.Model):
     title = models.CharField(null=False, default='', max_length=50, unique=True)
-    input_path = models.TextField(null=False, default='')
-    output_path = models.TextField(null=False, default='')
+    input = models.TextField(null=False, default='')
+    output = models.TextField(null=False, default='')
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
 
 

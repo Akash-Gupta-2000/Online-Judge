@@ -3,9 +3,9 @@ from Problem.models import Problem
 from django.contrib.auth.models import User
 
 class Submission(models.Model):
-    LANGUAGES = (("C++", "C++"), ("C", "C"), ("Python3", "Python3"),("Java", "Java"))
-    user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
-    problem_id = models.ForeignKey(Problem, null=True, on_delete=models.SET_NULL)
+    LANGUAGES = (("C++", "C++"), ("C", "C"), ("Python3", "Python3"))
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    problem = models.ForeignKey(Problem, null=True, on_delete=models.SET_NULL)
     user_code = models.TextField(max_length=10000, default="")
     user_stdout = models.TextField(max_length=10000, default="")
     user_stderr = models.TextField(max_length=10000, default="")

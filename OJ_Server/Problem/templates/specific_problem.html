@@ -96,11 +96,11 @@
                 <strong>Tags:</strong> {% for tag in problem_data.tags %}{{ tag.tagname }}{% if not forloop.last %}, {% endif %}{% endfor %}
             </div>
             <div class="problem-description">
-                {{ problem_data.description|safe }}
+                {{ problem_data.description|linebreaks|safe }}
             </div>
             <div class="problem-constraints">
                 <strong>Constraints:</strong><br>
-                {{ problem_data.constraints|safe }}
+                {{ problem_data.constraints|linebreaks|safe }}
             </div>
         </div>
         <div class="right-column">

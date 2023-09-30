@@ -15,7 +15,6 @@ class Problem(models.Model):
     tags = models.ManyToManyField(Tag)
 
 class Testcase(models.Model):
-    title = models.CharField(null=False, default='', max_length=50, unique=True)
     input = models.TextField(null=False, default='')
     output = models.TextField(null=False, default='')
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)

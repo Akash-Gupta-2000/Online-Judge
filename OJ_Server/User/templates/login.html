@@ -33,6 +33,13 @@
             margin-bottom: 20px;
         }
 
+        h2.codetown {
+            font-size: 36px;
+            color: #007BFF; /* Blue color */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
@@ -63,14 +70,15 @@
             top: 0;
             left: 0;
             right: 0;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-            color: #721c24;
+            background-color: #d4edda; /* Green background color */
+            border-color: #c3e6cb; /* Green border color */
+            color: #155724; /* Green text color */
             padding: 10px;
             border-radius: 5px;
             font-size: 16px;
             margin-bottom: 20px;
         }
+
 
         button[type="submit"] {
             background-color: #007BFF;
@@ -85,6 +93,29 @@
         button[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+        /* Style for the "Sign Up" button */
+        .signup-button {
+            background: none; /* Remove background color */
+            border: none; /* Remove border */
+            font-weight: normal; /* Remove bold */
+            font-size: 16px; /* Set font size to match other words */
+            cursor: pointer;
+            text-decoration: underline; /* Add underline to text */
+            color: #000; /* Black color for the link */
+            margin-top: 10px; /* Add some spacing from the login form */
+            display: inline; /* Make the link inline */
+        }
+
+        .signup-button:hover {
+            text-decoration: none; /* Remove underline on hover */
+            color: #0056b3; /* Darker blue on hover */
+        }
+
+        /* Style for the "Don't have an account" text */
+        .dont-have-account {
+            color: #777; /* Grey color for the text */
+        }
     </style>
 </head>
 <body>
@@ -96,6 +127,7 @@
     {% endfor %}
 
     <div class="container">
+        <h2 class="codetown">CodeTown</h2>
         <h3>Log In to your account!</h3>
         <form method="post" action="/users/login/" class="mb-2">
             {% csrf_token %}
@@ -108,6 +140,7 @@
 
             <button type="submit" class="btn btn-primary">Log In</button>
         </form>
+        <p class="dont-have-account">Don't have an account? <a class="signup-button" href="/users/register/">Sign Up</a></p>
     </div>
 </body>
 </html>

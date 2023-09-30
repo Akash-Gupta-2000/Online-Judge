@@ -80,7 +80,7 @@ def logout(request):
         else:
             messages.success(request, 'User Already Logged Out. Please Login Again to Continue!!')
 
-        return redirect('/users')
+        return redirect('/users/login')
 
     except Exception as e:
         messages.error(request, f"Exception Occured while Logging Out: {str(e)}")

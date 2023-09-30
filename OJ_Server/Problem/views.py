@@ -14,6 +14,7 @@ def getAllProblems(request):
         problem_dict["tags"] = tags
         problems_dict_list.append(problem_dict)
     # print(problems_dict_list)
+    problems_dict_list.sort(key=lambda x: x["id"])
     context = {'problems': problems_dict_list}
     return render(request, 'all_problems.html', context)
 

@@ -23,7 +23,7 @@ def register(request):
             last_name = request.POST["lastname"]
             email = request.POST["email"]
             password1 = request.POST["password1"]
-            password2 = request.POST["password1"]
+            password2 = request.POST["password2"]
 
             if User.objects.filter(username=username):
                 messages.error(request, "Username already exist! Please try some other username.")

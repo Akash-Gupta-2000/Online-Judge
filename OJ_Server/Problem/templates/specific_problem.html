@@ -12,12 +12,34 @@
             padding: 0;
         }
 
+        .navbar {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 0; /* Add padding to the top and bottom */
+            text-align: left; /* Center-align the text */
+            width: 100%;
+            margin: 0;
+            position: fixed; /* Fix the navbar to the top of the screen */
+            top: 0; /* Position it at the top of the screen */
+            left: 0;
+            right: 0;
+            z-index: 1; /* Set a high z-index to place it above other content */
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
+        }
+
         .container {
             display: flex;
             justify-content: space-between;
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
+            margin-top: 50px; /* Add margin to the top to avoid overlap with navbar */
         }
 
         .left-column {
@@ -87,6 +109,21 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <a href="/problems/getAllProblems">CodeTown</a>
+        <!-- Add more navbar links as needed -->
+        <div class="user-info" style="float: right;">
+            <!-- Add user information here -->
+            {% if user.is_authenticated %}
+                Welcome, {{ user.username }} |
+                <a href="/users/logout" onclick="return confirm('Do you really want to logout?');" id="logout-link">Logout</a>
+            {% else %}
+                <a href="/users/login">Login</a> |
+                <a href="/users/register">Register</a>
+            {% endif %}
+        </div>
+    </div>
+
     <div class="container">
         <div class="left-column">
             <div class="problem-title">{{ problem_data.title }}</div>

@@ -8,14 +8,44 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f7ff; /* Light blue background */
-            padding: 20px;
+            padding: 20px; /* Add padding to the body */
+            margin: 0; /* Remove default body margin */
+        }
+
+        .navbar {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 0; /* Add padding to the top and bottom */
+            text-align: left; /* Center-align the text */
+            width: 100%;
+            margin: 0;
+            position: fixed; /* Fix the navbar to the top of the screen */
+            top: 0; /* Position it at the top of the screen */
+            left: 0;
+            right: 0;
+            z-index: 1; /* Set a high z-index to place it above other content */
+        }
+
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
         }
 
         .container {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            margin: 20px auto; /* Add margin to the top and bottom and auto to the sides */
+            max-width: 800px; /* Optional: Set a maximum width for the container */
         }
+
+        h1 {
+            text-align: center; /* Center-align the "Problem List" heading */
+        }
+
 
         .card {
             border: 1px solid #ddd;
@@ -70,6 +100,21 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <a href="/problems/getAllProblems">CodeTown</a>
+        <!-- Add more navbar links as needed -->
+        <div class="user-info" style="float: right;">
+            <!-- Add user information here -->
+            {% if user.is_authenticated %}
+                Welcome, {{ user.username }} |
+                <a href="/users/logout" onclick="return confirm('Do you really want to logout?');" id="logout-link">Logout</a>
+            {% else %}
+                <a href="/users/login">Login</a> |
+                <a href="/users/register">Register</a>
+            {% endif %}
+        </div>
+    </div>
+
     <h1>Problem List</h1>
     <div class="container">
         {% for problem in problems %}

@@ -1,3 +1,11 @@
 Pipfile
 Pipfile.lock
 OJ_Server/usercodes
+OJ_Server/OJ_Server/__pycache__
+OJ_Server/Problem/__pycache__
+OJ_Server/Problem/migrations/__pycache__
+OJ_Server/Submission/__pycache__
+OJ_Server/Submission/migrations/__pycache__
+OJ_Server/User/__pycache__
+OJ_Server/User/migrations/__pycache__
+CodeTown_OJ_KP.pem

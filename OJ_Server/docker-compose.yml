@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database service
+  db:
+    image: postgres:13
+    container_name: postgres_db_container
+    environment:
+      - POSTGRES_DB=online_judge
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pgfrcmaxadmin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Django web application service
+  web:
+    build: .
+    image: django_app_image
+    container_name: django_app_container
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+

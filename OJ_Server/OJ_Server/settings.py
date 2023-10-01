@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'OJ_Server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'OPTIONS': {
-            'options': '-c search_path=oj_admin'
-         },
+        # 'OPTIONS': {
+        #     'options': '-c search_path=oj_admin'
+        #  },
         'NAME': 'online_judge',
-        'HOST': 'flddfmrvd03',
+        'HOST': 'db',
         'PORT': '5432',
         'USER': 'postgres',
         'PASSWORD': 'pgfrcmaxadmin',
